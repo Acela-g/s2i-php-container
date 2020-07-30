@@ -47,6 +47,7 @@ RUN yum install -y centos-release-scl && \
                   rh-php72-php-process rh-php72-php-soap rh-php72-php-opcache rh-php72-php-xml \
                   rh-php72-php-gmp rh-php72-php-pecl-apcu httpd24-mod_ssl" && \
     yum install -y --setopt=tsflags=nodocs $INSTALL_PKGS --nogpgcheck && \
+    yum install -y graphviz && \
     rpm -V $INSTALL_PKGS && \
     yum -y clean all --enablerepo='*'
 
