@@ -37,7 +37,7 @@ LABEL summary="${SUMMARY}" \
       com.redhat.component="rh-${NAME}${PHP_VER_SHORT}-container" \
       version="${PHP_VERSION}" \
       help="For more information visit https://github.com/sclorg/s2i-${NAME}-container" \
-      usage="s2i build https://github.com/sclorg/s2i-php-container.git --context-dir=${PHP_VERSION}/test/test-app centos/${NAME}-${PHP_VER_SHORT}-centos7 sample-server" \
+      usage="s2i build https://github.com/Acela-g/s2i-php-container.git --context-dir=${PHP_VERSION}/test/test-app centos/${NAME}-${PHP_VER_SHORT}-centos7 sample-server" \
       maintainer="SoftwareCollections.org <sclorg@redhat.com>"
 
 # Install Apache httpd and PHP
@@ -64,6 +64,13 @@ ENV PHP_CONTAINER_SCRIPTS_PATH=/usr/share/container-scripts/php/ \
     HTTPD_DATA_ORIG_PATH=/opt/rh/httpd24/root/var/www \
     HTTPD_VAR_PATH=/opt/rh/httpd24/root/var \
     SCL_ENABLED=rh-php72
+
+RUN curl -L -o /tmp/iTop.zip https://sourceforge.net/projects/itop/files/itop/2.7.1/iTop-2.7.1-5896.zip && \
+         unzip /tmp/iTop.zip -d /tmp/ web/* && \
+         mv -v /tmp/web/* /opt/app-root/src && \
+         chown -R default: /opt/app-root/src && \
+         rm -rf /tmp/iTop.zip /tmp/web
+
 
 # Copy the S2I scripts from the specific language image to $STI_SCRIPTS_PATH
 COPY ./s2i/bin/ $STI_SCRIPTS_PATH
